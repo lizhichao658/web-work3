@@ -1,0 +1,454 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>静夜灯下分享会 · Night Lamp Sharing</title>
+<style>
+    /* ============ 页面底色：夜色 + 灯光的渐变背景 ============ */
+    html, body { margin: 0; padding: 0; }
+
+    body {
+        font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Segoe UI", sans-serif;
+        background: radial-gradient(900px 420px at 50% -6%, rgba(240, 185, 111, 0.16), rgba(240, 185, 111, 0) 65%),
+                    linear-gradient(165deg, #071a1c 0%, #0c2725 48%, #123a33 100%);
+        color: #dff2e8;
+        padding: 30px 14px 46px;
+        text-align: center;
+    }
+
+    /* ============ 作业要求的 .page 样式：仅 background-color 改为薄荷牛奶绿 ============ */
+    .page {
+        display: inline-block;
+        background-color: #E8FFF4;
+        box-shadow: 0 0 30px rgba(80, 58, 35, 0.25);
+        text-align: left;
+        max-width: 720px;
+    }
+
+    /* ============ 并集选择器：统一 h1~h6 的字体与颜色 ============ */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: Georgia, "Songti SC", "Noto Serif SC", "SimSun", serif;
+        color: #123d38;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin: 0;
+    }
+
+    /* ============ ① 顶部标题区 ============ */
+    .hero {
+        padding: 44px 44px 30px;
+        text-align: center;
+        background-color: #0b2224;
+        background-image:
+            radial-gradient(circle at 15% 18%, rgba(255, 255, 255, 0.75) 0 1px, transparent 1.6px),
+            radial-gradient(circle at 34% 9%, rgba(255, 255, 255, 0.5) 0 1.1px, transparent 1.8px),
+            radial-gradient(circle at 62% 14%, rgba(255, 255, 255, 0.65) 0 0.9px, transparent 1.6px),
+            radial-gradient(circle at 83% 26%, rgba(255, 255, 255, 0.45) 0 1.2px, transparent 1.9px),
+            radial-gradient(circle at 92% 8%, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.7px),
+            radial-gradient(circle at 8% 44%, rgba(255, 255, 255, 0.35) 0 0.9px, transparent 1.5px),
+            radial-gradient(circle at 46% 38%, rgba(255, 255, 255, 0.4) 0 0.8px, transparent 1.4px),
+            radial-gradient(520px 240px at 78% 0%, rgba(240, 185, 111, 0.26), rgba(240, 185, 111, 0) 70%),
+            linear-gradient(170deg, #071a1e 0%, #0b2728 52%, #14423a 100%);
+    }
+
+    .eyebrow {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 5px 14px 4px;
+        border: 1px solid rgba(240, 185, 111, 0.38);
+        border-radius: 999px;
+        background-color: rgba(240, 185, 111, 0.07);
+        color: #e8c46a;
+        font-size: 10.5px;
+        letter-spacing: 3px;
+    }
+
+    h1 {
+        margin: 0 0 14px;
+        color: #f7f2e4;
+        font-size: 40px;
+        letter-spacing: 8px;
+        text-shadow: 0 0 26px rgba(240, 185, 111, 0.42), 0 2px 0 rgba(0, 0, 0, 0.28);
+    }
+
+    .sub {
+        margin: 0;
+        color: #9dc8b8;
+        font-size: 13px;
+        letter-spacing: 2px;
+        line-height: 1.9;
+    }
+
+    /* 灯绳与四盏小灯：纯 CSS 画出来的夜灯 */
+    .lights { margin-top: 26px; }
+    .lights::before {
+        content: "";
+        display: block;
+        height: 1px;
+        margin: 0 16%;
+        background: linear-gradient(to right, rgba(240, 185, 111, 0), rgba(240, 185, 111, 0.55), rgba(240, 185, 111, 0));
+    }
+    .lights div {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        margin: -4px 17px 0;
+        border-radius: 50%;
+        background: radial-gradient(circle at 38% 34%, #fff8dd, #f0b95a 70%, #d9963c);
+        box-shadow: 0 0 14px 4px rgba(240, 185, 111, 0.5);
+    }
+    .lights div:nth-child(2) { width: 12px; height: 12px; margin-top: -7px; }
+
+    .hero::after {
+        content: "";
+        display: block;
+        height: 1px;
+        margin-top: 28px;
+        background: linear-gradient(to right, rgba(240, 185, 111, 0), rgba(240, 185, 111, 0.3), rgba(240, 185, 111, 0));
+    }
+
+    /* ============ 分隔线：用渐变背景模拟，不用 border 画线 ============ */
+    .divider {
+        height: 1px;
+        margin: 0 44px;
+        background: linear-gradient(to right, rgba(18, 61, 56, 0), rgba(18, 61, 56, 0.28), rgba(18, 61, 56, 0));
+    }
+
+    /* ============ ② 活动介绍区 ============ */
+    .intro { padding: 32px 44px 6px; }
+
+    h2 { font-size: 25px; letter-spacing: 3px; }
+    h2::after {
+        content: "";
+        display: block;
+        width: 54px;
+        height: 2px;
+        margin-top: 12px;
+        background: linear-gradient(to right, #d9a441, rgba(217, 164, 65, 0));
+    }
+
+    p { margin: 0 0 16px; }
+
+    .intro-text {
+        margin-top: 20px;
+        color: #2d4f47;
+        font-size: 14.5px;
+        line-height: 2.1;
+        letter-spacing: 0.4px;
+        text-align: justify;
+    }
+
+    /* ============ ID 选择器 p#intro：重要提示，放大 + 加粗 + 特殊颜色 ============ */
+    p#intro {
+        margin: 24px 0 4px;
+        padding: 14px 18px;
+        border-left: 4px solid #c8903a;
+        border-radius: 0 8px 8px 0;
+        background-color: rgba(168, 69, 26, 0.07);
+        color: #a8451a;
+        font-size: 1.13em;
+        font-weight: 700;
+        line-height: 2;
+        letter-spacing: 0.5px;
+    }
+
+    /* ============ 伪元素 p::first-letter：段首字放大描成琥珀色 ============ */
+    p::first-letter {
+        font-size: 185%;
+        color: #b8742b;
+        font-weight: 700;
+    }
+
+    /* 副标题与表注不参与段首放大，保持轻盈 */
+    .sub::first-letter, .table-note::first-letter {
+        font-size: 100%;
+        color: inherit;
+        font-weight: 400;
+    }
+
+    /* 重要提示本身的字号已放大，段首字只再稍作强调 */
+    p#intro::first-letter { font-size: 130%; }
+
+    /* ============ 灯下引句 ============ */
+    .quote {
+        margin: 24px 0 28px;
+        padding: 16px 22px;
+        border-left: 3px solid #d9a441;
+        border-radius: 0 6px 6px 0;
+        background: linear-gradient(120deg, rgba(217, 164, 65, 0.14), rgba(217, 164, 65, 0.03));
+        color: #7a5326;
+        font-family: Georgia, "Songti SC", "Noto Serif SC", "SimSun", serif;
+        font-size: 14px;
+        line-height: 2;
+        letter-spacing: 1px;
+    }
+
+    /* ============ 伪元素 div::first-line：每个 div 的首行略微拉开字距 ============ */
+    div::first-line { letter-spacing: 1.2px; }
+    .quote::first-line { color: #8a5a1f; font-weight: 700; }
+
+    /* ============ ③ 活动报名信息表格区 ============ */
+    .roster { padding: 28px 44px 32px; }
+
+    h3 { font-size: 19px; letter-spacing: 2px; text-align: center; }
+
+    table {
+        width: 100%;
+        margin-top: 18px;
+        border-collapse: collapse;
+        background-color: rgba(255, 255, 255, 0.5);
+        font-size: 13.5px;
+    }
+
+    th {
+        padding: 10px 9px;
+        background-color: #123d38;
+        color: #eaf8f1;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-align: left;
+    }
+
+    td {
+        padding: 10px 9px;
+        border-bottom: 1px solid rgba(18, 61, 56, 0.1);
+        color: #2d4f47;
+    }
+
+    table tr:nth-child(even) { background-color: #f3fdf8; }
+    table tr:hover { background-color: #e2f6ec; }
+
+    /* ============ 后代选择器 div table a：只突出表格里的链接 ============ */
+    div table a {
+        color: #b4560f;
+        font-weight: 700;
+        text-decoration: none;
+        border-bottom: 1px dotted rgba(180, 86, 15, 0.6);
+    }
+
+    .table-note {
+        margin: 14px 0 0;
+        color: #5d7c73;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        line-height: 1.9;
+    }
+
+    /* ============ 链接伪类：a:link / a:visited / a:hover / a:active ============ */
+    a:link {
+        color: #a8451a;
+        text-decoration: none;
+    }
+    a:visited {
+        color: #6b7a58;
+        text-decoration: none;
+    }
+    a:hover {
+        color: #123d38;
+        text-decoration: underline;
+    }
+    a:active {
+        color: #0b6f74;
+        text-decoration: underline;
+    }
+
+    /* ============ ④ 页面链接区：a.red 与 a.blue 两颗灯形按钮 ============ */
+    .links { padding: 6px 44px 30px; text-align: center; }
+
+    .link-row { padding: 24px 0 6px; text-align: center; }
+
+    a.red, a.blue {
+        display: inline-block;
+        margin: 7px 9px;
+        padding: 12px 30px;
+        border-radius: 999px;
+        font-size: 14px;
+        letter-spacing: 2px;
+    }
+
+    a.red {
+        border: 1px solid rgba(168, 69, 26, 0.38);
+        background-color: rgba(214, 120, 90, 0.14);
+        color: #8f2f1d;
+    }
+
+    a.blue {
+        border: 1px solid rgba(28, 95, 116, 0.36);
+        background-color: rgba(84, 160, 180, 0.14);
+        color: #1c5f74;
+    }
+
+    a.red:hover {
+        background-color: rgba(214, 120, 90, 0.26);
+        color: #6f1f12;
+    }
+
+    a.blue:hover {
+        background-color: rgba(84, 160, 180, 0.26);
+        color: #134a5b;
+    }
+
+    /* ============ ⑤ 底部公告区 ============ */
+    .notice {
+        padding: 24px 44px 26px;
+        background-image: linear-gradient(135deg, #0d2c27 0%, #123a33 60%, #17453b 100%);
+        color: #b7d9ca;
+        font-size: 12.5px;
+        line-height: 2.2;
+        letter-spacing: 0.6px;
+    }
+
+    .notice::first-line {
+        color: #f0c979;
+        font-weight: 700;
+    }
+
+    /* ============ 窄屏适配 ============ */
+    @media (max-width: 620px) {
+        body { padding: 16px 8px 28px; }
+        .hero { padding: 36px 24px 26px; }
+        h1 { font-size: 30px; letter-spacing: 5px; }
+        .divider { margin: 0 24px; }
+        .intro, .roster, .links { padding-left: 24px; padding-right: 24px; }
+        h2 { font-size: 21px; letter-spacing: 2px; }
+        table { font-size: 11.5px; letter-spacing: 0; }
+        th { letter-spacing: 0; white-space: nowrap; }
+        th, td { padding: 8px 5px; }
+        td a { white-space: nowrap; }
+        .notice { padding: 20px 24px 22px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- ① 顶部标题区 -->
+    <div class="hero">
+        <div class="eyebrow">NIGHT LAMP SHARING · 第 7 期</div>
+        <h1>静夜灯下分享会</h1>
+        <p class="sub">城市阅读会 · 每周六 19:30，静夜书屋三层灯厅<br>一盏灯亮着，一本书摊开，你就有了坐下听故事的理由</p>
+        <div class="lights">
+            <div></div><div></div><div></div><div></div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ② 活动介绍区 -->
+    <div class="intro">
+        <h2 id="intro">这盏灯，每周六为你亮着</h2>
+
+        <p class="intro-text">
+            静夜灯下分享会由城市阅读会在一场冬雨里发起，如今已经点到第 7 期。
+            每周六晚七点半，静夜书屋三层的灯厅会亮起七八盏暖光台灯，长桌被拼在一起，
+            书摊开，茶续上，谁都可以带着一本正在读的书来坐一会儿。
+            我们不排座次，也不发讲义，灯厅里只有椅子挪动的声音和翻页的声音。
+        </p>
+
+        <p class="intro-text">
+            分享会分为三个固定段落。第一段「灯下自述」，三位分享人轮流用二十分钟，
+            讲一本书与自己的故事；第二段「共读十分钟」，全场安静下来，各自读手上那一页，
+            只听见台灯细微的电流声；第三段「灯下问答」，你可以举手提问，
+            也可以把问题写在门口木托盘里的便签上，由主持人替你在灯下念出来。
+            散场前，我们交换彼此的书签。
+        </p>
+
+        <p class="intro-text">
+            我们不做阅读打卡，也不评选年度书单，只是想让阅读回到一件很慢、很私人的事情上：
+            有人读，有人听，也有人只是坐在灯下待一会儿。
+            如果你恰好带着一本舍不得折页的书，欢迎把它放在长桌中央，让它替你介绍一下自己。
+        </p>
+
+        <p id="intro">
+            重要提示：灯厅仅设 24 个灯位，报名以收到「灯位确认」短信为准；
+            现场请自带一本愿意被传阅的旧书，并在扉页写下你的名字——
+            一个月后，它也许会在另一位读者的灯下被重新翻开。
+        </p>
+
+        <div class="quote">
+            「灯亮着的时候，书就不止属于一个人了。」<br>
+            —— 上一期分享人 · 林晚
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ③ 活动报名信息表格区 -->
+    <div class="roster">
+        <h3>灯下分享人名单 · 第 7 期</h3>
+
+        <table>
+            <tr>
+                <th>编号</th>
+                <th>分享人</th>
+                <th>分享主题</th>
+                <th>分享书目</th>
+                <th>灯位状态</th>
+            </tr>
+            <tr>
+                <td>01</td>
+                <td><a href="https://example.com/person1">林晚</a></td>
+                <td>失眠夜里的一本旧书</td>
+                <td>《夜航西飞》</td>
+                <td>已确认</td>
+            </tr>
+            <tr>
+                <td>02</td>
+                <td><a href="https://example.com/person2">周叙白</a></td>
+                <td>在通勤地铁上重读古诗</td>
+                <td>《诗经 · 郑风》</td>
+                <td>已确认</td>
+            </tr>
+            <tr>
+                <td>03</td>
+                <td><a href="https://example.com/person3">陈也</a></td>
+                <td>一页批注的重量</td>
+                <td>《给青年诗人的信》</td>
+                <td>已确认</td>
+            </tr>
+            <tr>
+                <td>04</td>
+                <td><a href="https://example.com/person4">宋照</a></td>
+                <td>小城书店的灯是怎么亮的</td>
+                <td>《书店日记》</td>
+                <td>待确认</td>
+            </tr>
+            <tr>
+                <td>05</td>
+                <td><a href="https://example.com/person5">阿禾</a></td>
+                <td>把童话读给大人听</td>
+                <td>《小王子》</td>
+                <td>候补</td>
+            </tr>
+        </table>
+
+        <p class="table-note">
+            名单每周四更新一次；候补的同学如果收到灯位确认短信，请回复「灯下见」。
+            分享主题会在每期开场前由分享人自己报给我们，不做提前公示。
+        </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ④ 页面链接区 -->
+    <div class="links">
+        <div class="link-row">
+            <a class="red" href="https://lizhichao658.github.io/web_works/li-0101-work2.html#show">查看往期活动照片</a>
+            <a class="blue" href="https://lizhichao658.github.io/web_works/li-0101-work2.html#signup">在线咨询活动详情</a>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ⑤ 底部公告区 -->
+    <div class="notice">
+        静夜书屋 · 灯厅：青石巷 88 号三层，地铁 2 号线「图书城站」A 口出，沿暖色灯牌直行三分钟。<br>
+        灯下约定：手机调至静音，分享时不拍照、不录音；想提问，请把问题写进门口木托盘里的便签。<br>
+        熄灯时间：22:00。最后一盏小灯，留给还没读完最后一页的人。
+    </div>
+
+</div>
+
+</body>
+</html>
